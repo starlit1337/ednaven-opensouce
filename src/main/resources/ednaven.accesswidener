@@ -1,0 +1,25 @@
+accessWidener	v1	intermediary
+accessible	method	net/minecraft/class_1657	method_23326	()F
+accessible	method	net/minecraft/class_1297	method_18795	(Lnet/minecraft/class_243;FF)Lnet/minecraft/class_243;
+accessible	method	net/minecraft/class_636	method_2911	()V
+accessible	field	net/minecraft/class_286	field_38982	Lnet/minecraft/class_291;
+accessible	method	net/minecraft/class_638	method_41925	()Lnet/minecraft/class_7202;
+accessible	method	net/minecraft/class_757	method_3196	(Lnet/minecraft/class_4184;FZ)D
+accessible	method	net/minecraft/class_757	method_3198	(Lnet/minecraft/class_4587;F)V
+accessible	method	net/minecraft/class_757	method_3186	(Lnet/minecraft/class_4587;F)V
+accessible	field	net/minecraft/class_1309	field_6228	I
+accessible	field	net/minecraft/class_310	field_1752	I
+accessible	field	net/minecraft/class_279	field_1497	Ljava/util/List;
+accessible	field	net/minecraft/class_276	field_1474	I
+accessible	field	com/mojang/blaze3d/systems/RenderSystem$class_5590	field_27335	I
+accessible	class	net/minecraft/class_310$class_8764
+accessible	field	net/minecraft/class_1665	field_7576	I
+accessible	field	net/minecraft/class_2828	field_12887	F
+accessible	field	net/minecraft/class_2828	field_12885	F
+mutable	field	net/minecraft/class_2828	field_12887	F
+mutable	field	net/minecraft/class_2828	field_12885	F
+accessible	field	net/minecraft/class_636	field_3714	Lnet/minecraft/class_2338;
+accessible	field	net/minecraft/class_636	field_3717	Z
+accessible	field	net/minecraft/class_746	field_3919	Z
+accessible	field	net/minecraft/class_2824	field_12870	I
+accessible	method	net/minecraft/class_4970	method_9573	(Lnet/minecraft/class_2680;)Lnet/minecraft/class_2498;

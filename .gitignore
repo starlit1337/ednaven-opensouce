@@ -1,0 +1,22 @@
+# Gradle
+.gradle/
+build/
+out/
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# Loom / 运行目录
+run/
+.devauth/
+
+# 临时文件
+_tmp*/
+*.log
+
+# 本地依赖 jar（构建用，不入库；如需可放 git-lfs 或 maven 仓库）
+libs/

@@ -1,0 +1,88 @@
+plugins {
+    id 'idea'
+    id 'java'
+    id 'java-library'
+    // 1.20.6 仍是带混淆的版本，需要使用会做重映射的 loom 插件（不是 26.1+ 的免重映射版）
+    id 'fabric-loom' version '1.7-SNAPSHOT'
+}
+
+group = project.maven_group
+version = project.mod_version
+base { archivesName = project.archives_base_name }
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { name = 'Fabric'; url = 'https://maven.fabricmc.net/' }
+    // 国内镜像兜底（mavenCentral 慢时 Gradle 会按顺序回退尝试）
+    maven { url = 'https://mirrors.cloud.tencent.com/nexus/repository/maven-public/' }
+}
+
+loom {
+    // fabric.mod.json 里已声明 accessWidener，开发期同样要应用
+    accessWidenerPath = file('src/main/resources/ednaven.accesswidener')
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+
+    // ── 关键 ────────────────────────────────────────────────────────────
+    // 反编译产出的源码里，Minecraft 类用的是 Intermediary 中间名：
+    //     net.minecraft.class_310 (Minecraft)、class_638 (ClientWorld) ...
+    // 所以这里必须用「仅 Intermediary」映射。
+    // 若换成 Yarn（net.fabricmc:yarn），class_310 会被命名成 Minecraft，
+    // 源码里的 import 会全部失效，编译必然失败。
+    //
+    // 兜底：若该坐标解析不到，可手动下载
+    //   https://maven.fabricmc.net/net/fabricmc/intermediary/1.20.6/intermediary-1.20.6-v2.jar
+    // 放进工程根目录的 mappings/ 文件夹，然后把下面这行改成：
+    //     mappings fileTree(dir: 'mappings', include: '*.jar')
+    // ────────────────────────────────────────────────────────────────────
+    mappings "net.fabricmc:intermediary:${project.minecraft_version}:v2"
+
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+    // 原 jar 内嵌的依赖（javacv / ffmpeg / javacpp / skija / collection），
+    // 已从 META-INF/jars 提取到 libs/。编译期使用，打包时再放回 META-INF/jars。
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    // 下面这些 Minecraft 运行时自带，此处仅为编译期补全，不会打进产物
+    compileOnly 'commons-io:commons-io:2.15.1'
+    compileOnly 'org.apache.commons:commons-lang3:3.14.0'
+    compileOnly 'com.google.code.gson:gson:2.10.1'
+    compileOnly 'org.jetbrains:annotations:24.1.0'
+    compileOnly 'com.google.errorprone:error_prone_annotations:2.23.0'
+}
+
+// 源码含中文包名（EdNaven 的水面混淆层），必须显式 UTF-8
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.compilerArgs += ['-nowarn']
+}
+
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(21) }
+    withSourcesJar()
+}
+
+processResources {
+    inputs.property 'version', project.version
+    filesMatching('fabric.mod.json') { expand 'version': project.version }
+}
+
+jar {
+    // 把内嵌依赖放回 META-INF/jars，供 fabric.mod.json 的 jars 字段在运行时加载
+    from('libs') { into 'META-INF/jars' }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+// 分发包：把构建出的 mod jar 打成 zip（对齐 Southside 的 package 任务）
+tasks.register('packageMod', Zip) {
+    dependsOn tasks.named('build')
+    from("${buildDir}/libs") {
+        include "${project.archives_base_name}-${project.version}.jar"
+        rename { 'EdNaven_Fabric.jar' }
+    }
+    archiveFileName.set('EdNaven_Fabric.zip')
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}

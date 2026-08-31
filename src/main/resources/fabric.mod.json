@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "id": "ednaven_fabric",
+  "version": "3.3-LATEST",
+  "name": "EdNaven_Fabric",
+  "accessWidener": "ednaven.accesswidener",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "tech.naven.fabric.NavenModInitializer"
+    ]
+  },
+  "mixins": [
+    "ednaven_fabric.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": "\u003e\u003d0.18.4",
+    "fabric": "*",
+    "minecraft": "1.20.6"
+  },
+  "jars": [
+    {
+      "file": "META-INF/jars/collection-jvm-1.5.0.jar"
+    },
+    {
+      "file": "META-INF/jars/ffmpeg-6.1.1-1.5.10-windows-x86_64.jar"
+    },
+    {
+      "file": "META-INF/jars/ffmpeg-6.1.1-1.5.10.jar"
+    },
+    {
+      "file": "META-INF/jars/graphics-shapes-desktop-1.1.0.jar"
+    },
+    {
+      "file": "META-INF/jars/javacpp-1.5.10.jar"
+    },
+    {
+      "file": "META-INF/jars/javacv-1.5.10.jar"
+    },
+    {
+      "file": "META-INF/jars/skija-shared-0.116.4.jar"
+    },
+    {
+      "file": "META-INF/jars/skija-windows-x64-0.116.4.jar"
+    },
+    {
+      "file": "META-INF/jars/types-0.2.0.jar"
+    }
+  ]
+}

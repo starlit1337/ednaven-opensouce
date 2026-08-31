@@ -1,0 +1,47 @@
+{
+    "required":  true,
+    "minVersion":  "0.8",
+    "package":  "tech.naven.Y",
+    "compatibilityLevel":  "JAVA_21",
+    "client":  [
+                   "F",
+                   "Y",
+                   "o",
+                   "U",
+                   "y",
+                   "O",
+                   "R",
+                   "p",
+                   "P",
+                   "m",
+                   "W",
+                   "C",
+                   "A",
+                   "u",
+                   "h",
+                   "J",
+                   "z",
+                   "a",
+                   "Q",
+                   "X",
+                   "M",
+                   "i",
+                   "B",
+                   "I",
+                   "f",
+                   "l",
+                   "E",
+                   "g",
+                   "D",
+                   "q",
+                   "v",
+                   "t",
+                   "d"
+               ],
+    "injectors":  {
+                      "defaultRequire":  1
+                  },
+    "mixins":  [
+                   "x"
+               ]
+}
